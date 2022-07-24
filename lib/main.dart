@@ -1,5 +1,7 @@
-import 'package:ecommerce_app/components/main_menu.dart';
+import 'package:ecommerce_app/screens/forgot_password.dart';
+import 'package:ecommerce_app/screens/main_menu.dart';
 import 'package:ecommerce_app/screens/login.dart';
+import 'package:ecommerce_app/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainMenu(),
+      home: SignUpScreen(),
     );
   }
 }

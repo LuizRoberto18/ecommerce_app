@@ -6,7 +6,7 @@ import 'package:ecommerce_app/sharedinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../components/main_menu.dart';
+import '../screens/main_menu.dart';
 import 'forgot_password.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               icon: Icon(Icons.arrow_back),
             ),
           ],
+          elevation: 0,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -109,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 40),
                 Form(
                   key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
                       Container(
