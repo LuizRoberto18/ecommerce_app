@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -77,23 +78,93 @@ class _MainMenuState extends State<MainMenu> {
     return productList;
   }
 
+//Lista de telas
+  final List _telas = [
+    MainMenu(),
+    Container(),
+    Container(),
+    Container(),
+    LoginScreen(),
+  ];
+  int _paginaAtual = 0;
+
+/*void aoMudarDeAba(int index){
+  setState(() {
+    _paginaAtual = index;
+  });
+}*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      //body: _telas[0],
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          mainView(),
-          productNewview(),
-          //main view two
-          mainTwoView(),
-          productSaleView(),
-          productNewview(),
-          //main view three
-          mainThreeView()
-        ],
-      )),
+        child: Column(
+          children: [
+            mainView(),
+            productNewview(),
+            //main view two
+            mainTwoView(),
+            productSaleView(),
+            productNewview(),
+            //main view three
+            mainThreeView()
+          ],
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 55,
+        child: BottomNavigationBar(
+          selectedItemColor: cModeDarkColorButtom,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          currentIndex: 0,
+          //onTap: aoMudarDeAba,
+          iconSize: 25,
+          selectedIconTheme: IconThemeData(
+            color: (index == 0) ? cModeDarkColorButtom : Colors.grey,
+          ),
+          selectedLabelStyle: TextStyle(),
+          unselectedLabelStyle: TextStyle(color: Colors.grey),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: (index == 0) ? cModeDarkColorButtom : Colors.grey,
+              ),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart,
+                color: (index == 1) ? cModeDarkColorButtom : Colors.grey,
+              ),
+              label: "Shop",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.next_week,
+                color: (index == 2) ? cModeDarkColorButtom : Colors.grey,
+              ),
+              label: "Bag",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_border,
+                color: (index == 3) ? cModeDarkColorButtom : Colors.grey,
+              ),
+              label: "Favorites",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.logout,
+                color: (index == 4) ? cModeDarkColorButtom : Colors.grey,
+              ),
+              label: "Logout",
+            ),
+          ],
+        ),
+      ),
     );
   }
 

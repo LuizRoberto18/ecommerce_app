@@ -9,8 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   //verificar se super está certo
-  AuthenticationBloc() : super(AuthenticationState());
-
+  AuthenticationBloc() : super(AuthenticationState()) {
+    on<LoginEvent>(_onGetUsers);
+  }
   void onLogin(String user, String password) {
     add(LoginEvent(
       user: user,
@@ -30,8 +31,8 @@ class AuthenticationBloc
 
   late SharedPreferences sharedPreferences;
 
-  Stream<AuthenticationState> mapEventToState(
-      AuthenticationEvent event) async* {
+  Stream<AuthenticationState> _onGetUsers(
+      AuthenticationEvent event, emit) async* {
     if (event is LoginEvent) {
       try {
         yield LoadingState();

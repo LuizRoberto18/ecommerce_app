@@ -33,10 +33,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: cModeDark,
       appBar: AppBar(
         backgroundColor: cModeDark,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.arrow_back),
-        ),
         elevation: 0,
       ),
       body: SingleChildScrollView(
