@@ -2,12 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/models/user.dart';
 import 'package:ecommerce_app/repositories/user_repository.dart';
 import 'package:ecommerce_app/services/api.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc(super.initialState);
+  //verificar se super está certo
+  AuthenticationBloc() : super(AuthenticationState());
 
   void onLogin(String user, String password) {
     add(LoginEvent(
@@ -24,7 +26,6 @@ class AuthenticationBloc
     add(CheckLoginEvent());
   }
 
-  @override
   AuthenticationState get initialState => AuthenticationState.initial();
 
   late SharedPreferences sharedPreferences;

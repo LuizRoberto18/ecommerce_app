@@ -6,7 +6,7 @@ const cModeDark = Color(0xFF100000);
 const cModeDarkColorButtom = Color(0xFFEF3652);
 const cModeDarkColorButtonText = Color(0xFFFFFFFF);
 const cModeDarkColorFontTitle = Color(0xFFFFFFFF);
-const cModeDarkColorFontSubTitlee = Color(0xFFABB4BD);
+const cModeDarkColorFontSubTitle = Color(0xFFABB4BD);
 const cModeDarkColorTextBox = Color(0xFF2A2C36);
 const cModeDarkColorTextBoxLabel = Color(0xFFABB4BD);
 

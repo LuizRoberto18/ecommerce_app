@@ -15,7 +15,7 @@ class SignSocialMedia extends StatelessWidget {
           height: 60,
           child: ElevatedButton(
             onPressed: () {},
-            child: Image.asset("assets/images/google-icon.png"),
+            child: Center(child: Image.asset("assets/images/google-icon.png")),
             style: ElevatedButton.styleFrom(
               primary: cModeDarkColorFontTitle,
               shape: RoundedRectangleBorder(
@@ -30,7 +30,8 @@ class SignSocialMedia extends StatelessWidget {
           height: 60,
           child: ElevatedButton(
             onPressed: () {},
-            child: Image.asset("assets/images/facebook-icon.png"),
+            child:
+                Center(child: Image.asset("assets/images/facebook-icon.png")),
             style: ElevatedButton.styleFrom(
               primary: cModeDarkColorFontTitle,
               shape: RoundedRectangleBorder(
