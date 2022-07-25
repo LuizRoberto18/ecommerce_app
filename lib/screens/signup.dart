@@ -1,13 +1,12 @@
-import 'package:ecommerce_app/components/icon_check_email.dart';
-import 'package:ecommerce_app/components/icon_check_password.dart';
+import 'package:ecommerce_app/screens/home_page.dart';
+import 'package:flutter/material.dart';
 import 'package:ecommerce_app/components/sign_social_media.dart';
 import 'package:ecommerce_app/components/text_form_field.dart';
 import 'package:ecommerce_app/screens/login.dart';
 import 'package:ecommerce_app/screens/main_menu.dart';
-import 'package:flutter/material.dart';
 
 import '../components/divider_footer.dart';
-import '../components/icon_check_name.dart';
+import '../components/icon_check.dart';
 import '../constants.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -26,6 +25,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool bCheckName = false;
   bool bCheckEmail = false;
   bool bCheckPassword = false;
+
+  void messageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Os campos precisam ser preenchidos corretamente!."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Ok"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       MediaQuery.of(context).size.width * 0.85,
                                   top: 13,
                                 ),
-                                child: IconCheckName(),
+                                child: IconCheck(controller: nameController),
                               )
                             ],
                           ),
@@ -106,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   left: MediaQuery.of(context).size.width * .85,
                                   top: 13,
                                 ),
-                                child: IconCheckEmail(),
+                                child: IconCheck(controller: emailController),
                               ),
                             ],
                           ),
@@ -136,7 +153,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   left: MediaQuery.of(context).size.width * .85,
                                   top: 13,
                                 ),
-                                child: IconCheckPassword(),
+                                child:
+                                    IconCheck(controller: passwordController),
                               ),
                             ],
                           ),
@@ -150,8 +168,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text("Already have an account?",
-                      style: TextStyle(color: cModeDarkColorFontTitle)),
+                  Text(
+                    "Already have an account?",
+                    style: TextStyle(color: cModeDarkColorFontTitle),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
                   InkWell(
                     child: Image.asset("assets/images/arrow-right.png"),
                     onTap: () {
@@ -170,8 +193,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => MainMenu()));
+                      if (nameController.text.isEmpty ||
+                          emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
+                        return messageDialog(context);
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HomePageScreen()));
+                      }
                     },
                     child: Text("SIGN UP"),
                     style: ElevatedButton.styleFrom(

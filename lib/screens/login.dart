@@ -1,7 +1,10 @@
 import 'package:ecommerce_app/bloc/authentication_bloc.dart';
 import 'package:ecommerce_app/components/divider_footer.dart';
+import 'package:ecommerce_app/components/icon_check.dart';
 import 'package:ecommerce_app/components/sign_social_media.dart';
+import 'package:ecommerce_app/components/text_form_field.dart';
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:ecommerce_app/sharedinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,9 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.of(context).pop();
           //save user to shared info
           sharedInfo.sharedLoginSave(state.user!);
+          print("ok");
           //fo to main menu
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => MainMenu(),
+            builder: (context) => HomePageScreen(),
           ));
         } else if (state is LoadingState) {
           //show loading
@@ -84,12 +88,6 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: cModeDark,
         appBar: AppBar(
           backgroundColor: cModeDark,
-          actions: [
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(Icons.arrow_back),
-            ),
-          ],
           elevation: 0,
         ),
         body: SingleChildScrollView(
@@ -110,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 40),
                 Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  autovalidateMode: AutovalidateMode.always,
                   child: Column(
                     children: [
                       Container(
@@ -120,25 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: Stack(
                           children: [
-                            TextFormField(
+                            TextFormFieldEdited(
                               controller: emailController,
-                              style: TextStyle(color: cModeDarkColorFontTitle),
-                              cursorColor: cModeDarkColorFontTitle,
-                              decoration: InputDecoration(
-                                focusColor: cModeDarkColorFontTitle,
-                                labelText: "E-mail",
-                                labelStyle: TextStyle(
-                                    color: cModeDarkColorTextBoxLabel),
-                                contentPadding: EdgeInsets.all(10),
-                                fillColor: cModeDarkColorFontTitle,
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent),
-                                ),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (value) =>
+                              text: "E-mail",
+                              validate: (value) =>
                                   validateEmail(value.toString()),
+                              keyboardType: TextInputType.emailAddress,
                             ),
                             Row(
                               children: [
@@ -148,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           0.85,
                                       top: 13),
                                   child: iconCheckEmail(),
-                                )
+                                ),
                               ],
                             ),
                           ],
@@ -162,26 +147,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: Stack(
                           children: [
-                            TextFormField(
-                              controller: emailController,
-                              style: TextStyle(color: cModeDarkColorFontTitle),
-                              cursorColor: cModeDarkColorFontTitle,
-                              decoration: InputDecoration(
-                                focusColor: cModeDarkColorFontTitle,
-                                labelText: "Password",
-                                labelStyle: TextStyle(
-                                    color: cModeDarkColorTextBoxLabel),
-                                contentPadding: EdgeInsets.all(10),
-                                fillColor: cModeDarkColorFontTitle,
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent),
-                                ),
-                              ),
-                              keyboardType: TextInputType.visiblePassword,
-                              validator: (value) =>
+                            TextFormFieldEdited(
+                              controller: passwordController,
+                              text: 'Password',
+                              validate: (value) =>
                                   validatePassword(value.toString()),
-                              obscureText: true,
+                              keyboardType: TextInputType.visiblePassword,
                             ),
                             Row(
                               children: [
@@ -190,7 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       left: MediaQuery.of(context).size.width *
                                           0.85,
                                       top: 13),
-                                  child: iconCheckPassword(),
+                                  child:
+                                      IconCheck(controller: passwordController),
                                 )
                               ],
                             ),
@@ -206,9 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text("Forgot your Password?",
                         style: TextStyle(color: cModeDarkColorFontSubTitle)),
+                    SizedBox(
+                      width: 5,
+                    ),
                     InkWell(
                       child: Image.asset("assets/images/arrow-right.png"),
                       onTap: () {
+                        print("ok");
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ForgotPasswordScreen()));
                       },
@@ -222,9 +198,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        //add event click
-                        authBloc.onLogin(
-                            emailController.text, passwordController.text);
+                        if (emailController.text.isEmpty ||
+                            passwordController.text.isEmpty) {
+                          return messageDialog(
+                              context, "Preencha os campos corretamente!.");
+                        } else {
+                          //add event click
+                          authBloc.onLogin(
+                              emailController.text, passwordController.text);
+                        }
                       },
                       child: Text("Login"),
                       style: ElevatedButton.styleFrom(
@@ -257,13 +239,31 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget iconCheckEmail() {
+    if (_formKey.currentState == null) {
+      return Container();
+    } else if (bCheckEmail && emailController.text.isNotEmpty) {
+      return Icon(
+        Icons.check,
+        color: Colors.green,
+      );
+    } else if (!bCheckEmail) {
+      return Icon(
+        Icons.clear,
+        color: Colors.red,
+      );
+    } else {
+      return Container();
+    }
+  }
+
   String validatePassword(String value) {
     if (value.length < 3) {
       bCheckPassword = false;
       return "Must be more than 3 character!";
     } else {
       bCheckPassword = true;
-      return "Senha Correta!";
+      return "";
     }
   }
 
@@ -274,37 +274,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (regex.hasMatch(value)) {
       bCheckEmail = true;
       //checar se validou email
-      return "ok";
+      return "";
     } else {
       bCheckEmail = false;
       return "Not a valid eamil addressm Should be your@email.com!";
-    }
-  }
-
-  Widget iconCheckEmail() {
-    if (_formKey.currentState == null) {
-      return Container();
-    } else if (bCheckEmail && emailController.text.isNotEmpty) {
-      return Icon(
-        Icons.check,
-        color: Colors.green,
-      );
-    } else if (!bCheckEmail) {
-      return Icon(Icons.clear, color: Colors.red);
-    } else {
-      return Container();
-    }
-  }
-
-  Widget iconCheckPassword() {
-    if (_formKey.currentState == null) {
-      return Container();
-    } else if (bCheckPassword && passwordController.text.isNotEmpty) {
-      return Icon(Icons.check, color: Colors.green);
-    } else if (!bCheckPassword) {
-      return Icon(Icons.clear, color: Colors.red);
-    } else {
-      return Container();
     }
   }
 }

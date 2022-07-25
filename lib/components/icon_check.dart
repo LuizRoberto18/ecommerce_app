@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 
-class IconCheckName extends StatefulWidget {
-  IconCheckName({Key? key}) : super(key: key);
-
-  @override
-  State<IconCheckName> createState() => _IconCheckNameState();
-}
-
-class _IconCheckNameState extends State<IconCheckName> {
+class IconCheck extends StatelessWidget {
   var _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  bool bCheckName = false;
+  final TextEditingController controller;
+  bool bCheck = false;
+  IconCheck({Key? key, required this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     if (_formKey.currentState == null) {
       return Container();
-    } else if (bCheckName && nameController.text.isNotEmpty) {
+    } else if (bCheck && controller.text.isNotEmpty) {
       return Icon(
         Icons.check,
         color: Colors.green,
       );
-    } else if (!bCheckName) {
+    } else if (!bCheck) {
       return Icon(
         Icons.clear,
         color: Colors.red,

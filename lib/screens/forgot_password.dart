@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:ecommerce_app/components/divider_footer.dart';
-import 'package:ecommerce_app/components/icon_check_email.dart';
 import 'package:ecommerce_app/components/text_form_field.dart';
 import 'package:ecommerce_app/constants.dart';
-import 'package:flutter/material.dart';
+
+import '../components/icon_check.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -18,6 +19,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   bool bCheckEmail = false;
   bool bCheckPassword = false;
+
+  void messageDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Ok"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(height: 10),
               Form(
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: AutovalidateMode.always,
                 child: Column(
                   children: [
                     Container(
@@ -77,7 +96,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                     left: MediaQuery.of(context).size.width *
                                         0.85,
                                     top: 13),
-                                child: IconCheckEmail(),
+                                child: IconCheck(controller: emailController),
                               ),
                             ],
                           ),
@@ -90,7 +109,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         height: 40,
                         width: MediaQuery.of(context).size.width,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (emailController.text.isEmpty) {
+                              return messageDialog(
+                                  context, "Preencha o E-mail corretamente!.");
+                            } else {
+                              return messageDialog(context,
+                                  "Nova senha enviada com sucesso, verferique seu E-mail!");
+                            }
+                          },
                           child: Text("SEND"),
                           style: ElevatedButton.styleFrom(
                             primary: cModeDarkColorButtom,
@@ -118,7 +145,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   String validateEmail(String value) {
     Pattern regexEmailPattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(regexEmailPattern.toString());
+    RegExp regex = RegExp(regexEmailPattern.toString());
     if (regex.hasMatch(value)) {
       bCheckEmail = true;
       return "ok";

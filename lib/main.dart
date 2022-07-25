@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/bloc/authentication_bloc.dart';
+import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:ecommerce_app/screens/main_menu.dart';
 import 'package:ecommerce_app/screens/signup.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,10 @@ class MyApp extends StatelessWidget {
         bloc: authBloc,
         listener: (context, AuthenticationState state) {
           if (state is LoggedInState) {
+            print(1);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => MainMenu(),
+                builder: (context) => HomePageScreen(),
               ),
             );
           } else {
