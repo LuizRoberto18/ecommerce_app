@@ -35,15 +35,15 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "Navegacao 1",
+                  "Woman",
                   style: TextStyle(color: cModeDarkColorFontTitle),
                 ),
                 Text(
-                  "Navegacao 2",
+                  "Men",
                   style: TextStyle(color: cModeDarkColorFontTitle),
                 ),
                 Text(
-                  "Navegacao 3",
+                  "Kids",
                   style: TextStyle(color: cModeDarkColorFontTitle),
                 ),
               ],
@@ -87,14 +87,28 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                   ),
                   CategoriesBox(
                     legend: "New",
-                    image: Image.asset("assets/images/item4.png"),
+                    image: "assets/images/image4.png",
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   CategoriesBox(
+                    legend: "Clothes",
+                    image: "assets/images/image1.png",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CategoriesBox(
+                    legend: "Shoes",
+                    image: "assets/images/image2.png",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CategoriesBox(
+                    image: "assets/images/image3.png",
                     legend: "Accesories",
-                    image: Image.asset("assets/images/image3.png"),
                   ),
                 ],
               ),

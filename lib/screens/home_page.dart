@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/screens/bag.dart';
+import 'package:ecommerce_app/screens/favorite.dart';
+import 'package:ecommerce_app/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app/screens/login.dart';
@@ -7,7 +10,7 @@ import 'package:ecommerce_app/screens/shopping.dart';
 import '../constants.dart';
 
 class HomePageScreen extends StatefulWidget {
-  HomePageScreen({Key? key}) : super(key: key);
+  const HomePageScreen({Key? key}) : super(key: key);
 
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();
@@ -17,7 +20,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   int _indexSelecionado = 0;
 
   void _tabSelecionada(int index) {
-    print(index);
     setState(() {
       _indexSelecionado = index;
     });
@@ -27,53 +29,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
   final List<Widget> _telas = [
     MainMenu(),
     ShoppingScreen(),
-    Container(),
-    Container(),
-    LoginScreen()
+    BagScreen(),
+    FavoriteScreen(),
+    ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    print(_indexSelecionado);
     return Scaffold(
       body: _telas[_indexSelecionado],
-      /*bottomNavigationBar: CostumBottomNavigationBar(
-        tabSelecioada: _tabSelecionada,
-        items: [
-          BottomNavigationBarItemEdited(
-            label: "Home",
-            icon: Icons.home,
-            temNotificacao: true,
-          ),
-          BottomNavigationBarItemEdited(
-            label: "Shopping",
-            icon: Icons.shopping_cart,
-            temNotificacao: true,
-          ),
-          BottomNavigationBarItemEdited(
-            label: "Bag",
-            icon: Icons.next_week,
-            temNotificacao: true,
-          ),
-          BottomNavigationBarItemEdited(
-            label: "Favorite",
-            icon: Icons.favorite,
-            temNotificacao: false,
-          ),
-          BottomNavigationBarItemEdited(
-            label: "Profile",
-            icon: Icons.person,
-            temNotificacao: false,
-          ),
-        ],
-      ),*/
+      backgroundColor: Colors.black,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _indexSelecionado,
         onTap: _tabSelecionada,
         selectedItemColor: cModeDarkColorButtom,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
         iconSize: 25,
+        backgroundColor: Colors.black,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -81,6 +52,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color:
                   (_indexSelecionado == 0) ? cModeDarkColorButtom : Colors.grey,
             ),
+            backgroundColor: Colors.black,
             label: "Home",
           ),
           BottomNavigationBarItem(
@@ -89,6 +61,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color:
                   (_indexSelecionado == 1) ? cModeDarkColorButtom : Colors.grey,
             ),
+            backgroundColor: Colors.black,
             label: "Shop",
           ),
           BottomNavigationBarItem(
@@ -97,6 +70,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color:
                   (_indexSelecionado == 2) ? cModeDarkColorButtom : Colors.grey,
             ),
+            backgroundColor: Colors.black,
             label: "Bag",
           ),
           BottomNavigationBarItem(
@@ -105,6 +79,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color:
                   (_indexSelecionado == 3) ? cModeDarkColorButtom : Colors.grey,
             ),
+            backgroundColor: Colors.black,
             label: "Favorites",
           ),
           BottomNavigationBarItem(
@@ -113,6 +88,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color:
                   (_indexSelecionado == 4) ? cModeDarkColorButtom : Colors.grey,
             ),
+            backgroundColor: Colors.black,
             label: "Logout",
           ),
         ],

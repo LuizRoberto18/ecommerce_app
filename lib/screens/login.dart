@@ -206,6 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           //add event click
                           authBloc.onLogin(
                               emailController.text, passwordController.text);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HomePageScreen(),
+                          ));
                         }
                       },
                       child: Text("Login"),

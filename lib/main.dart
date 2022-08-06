@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/bloc/authentication_bloc.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
-import 'package:ecommerce_app/screens/main_menu.dart';
 import 'package:ecommerce_app/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

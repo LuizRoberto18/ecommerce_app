@@ -1,7 +1,4 @@
 import 'package:ecommerce_app/components/main_three_view.dart';
-import 'package:ecommerce_app/constants.dart';
-import 'package:ecommerce_app/screens/login.dart';
-import 'package:ecommerce_app/screens/shopping.dart';
 import 'package:flutter/material.dart';
 
 import '../components/main_two_view.dart';

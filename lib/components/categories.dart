@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../constants.dart';
+import '../screens/cart.dart';
 
 class CategoriesBox extends StatelessWidget {
-  final Image image;
+  final String image;
   final String legend;
   const CategoriesBox({Key? key, required this.image, required this.legend})
       : super(key: key);
@@ -21,16 +23,33 @@ class CategoriesBox extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 25),
-            child: Text(
-              legend,
-              style: TextStyle(
-                color: cModeDarkColorFontSubTitle,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CartScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: cModeDarkColorTextBox,
+                elevation: 0,
+              ),
+              child: Text(
+                legend,
+                style: TextStyle(
+                  color: cModeDarkColorFontSubTitle,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          image,
+          Container(
+            height: 140,
+            width: 200,
+            child: Image.asset(image, fit: BoxFit.cover),
+          ),
         ],
       ),
     );

@@ -6,12 +6,12 @@ class TextFormFieldEdited extends StatelessWidget {
   final TextEditingController controller;
   final String text;
   final TextInputType keyboardType;
-  final Function(String value) validate;
+  final Function(String value)? validate;
   const TextFormFieldEdited({
     Key? key,
     required this.controller,
     required this.text,
-    required this.validate,
+    this.validate,
     required this.keyboardType,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class TextFormFieldEdited extends StatelessWidget {
             borderSide: BorderSide(color: Colors.transparent)),
       ),
       keyboardType: keyboardType,
-      validator: (value) => validate(value.toString()),
+      validator: (value) => validate!(value.toString()),
     );
   }
 }
