@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             print(1);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => HomePageScreen(),
+                builder: (context) => const HomePageScreen(),
               ),
             );
           } else {

@@ -1,4 +1,7 @@
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/screens/shopping._men.dart';
+import 'package:ecommerce_app/screens/shopping_kids.dart';
+import 'package:ecommerce_app/screens/shopping_woman.dart';
 import 'package:flutter/material.dart';
 
 import '../components/categories.dart';
@@ -13,106 +16,40 @@ class ShoppingScreen extends StatefulWidget {
 class _ShoppingScreenState extends State<ShoppingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: cModeDark,
-      appBar: AppBar(
-        toolbarHeight: 100,
-        title: Text("Categories"),
-        centerTitle: true,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
         backgroundColor: cModeDark,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
-          ),
-        ],
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Woman",
-                  style: TextStyle(color: cModeDarkColorFontTitle),
-                ),
-                Text(
-                  "Men",
-                  style: TextStyle(color: cModeDarkColorFontTitle),
-                ),
-                Text(
-                  "Kids",
-                  style: TextStyle(color: cModeDarkColorFontTitle),
-                ),
-              ],
+        appBar: AppBar(
+          toolbarHeight: 100,
+          title: const Text("Categories"),
+          centerTitle: true,
+          backgroundColor: cModeDark,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width * 1,
-                    margin: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: cModeDarkColorButtom,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Sumer Sales".toUpperCase(),
-                          style: TextStyle(
-                            color: cModeDarkColorFontTitle,
-                            fontSize: cSizeTextHeader,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 3,
-                          ),
-                        ),
-                        Text(
-                          "Up to 50% off",
-                          style: TextStyle(
-                            color: cModeDarkColorFontSubTitle,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  CategoriesBox(
-                    legend: "New",
-                    image: "assets/images/image4.png",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CategoriesBox(
-                    legend: "Clothes",
-                    image: "assets/images/image1.png",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CategoriesBox(
-                    legend: "Shoes",
-                    image: "assets/images/image2.png",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CategoriesBox(
-                    image: "assets/images/image3.png",
-                    legend: "Accesories",
-                  ),
-                ],
+          ],
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                text: 'Woman',
               ),
-            ),
+              Tab(
+                text: 'Men',
+              ),
+              Tab(
+                text: 'Kids',
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            ShoppingWomanScreen(),
+            ShoppingMenScreen(),
+            ShoppingKidsScreen(),
           ],
         ),
       ),
